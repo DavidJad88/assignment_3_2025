@@ -1,0 +1,54 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+}
+
+@font-face {
+  font-family: RobotoCondensed-Variable;
+  src: url("/assets/fonts/RobotoCondensed-Variable.ttf");
+}
+
+:root {
+  /* Spacing variables */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* Font size variables */
+  --text-xxs: 10px;
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+
+  --text-light: 300;
+  --text-medium: 400;
+
+  /* Light blue theme colors */
+  --light-blue-100: #e6f7ff;
+  --light-blue-200: #b3e0ff;
+  --light-blue-300: #80c9ff;
+  --light-blue-400: #4db3ff;
+  --light-blue-500: #1a9cff;
+  --light-blue-600: #0080e6;
+
+  /* Button colors */
+  --button-passive: var(--light-blue-200);
+  --button-active: var(--light-blue-500);
+  --button-hover: var(--light-blue-400);
+  --button-text: #fff;
+
+  /* Additional UI colors */
+  --border-color: #cce6ff;
+  --background-light: #f5fbff;
+  --text-primary: #003366;
+  --text-secondary: #4d4d4d;
+}
