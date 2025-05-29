@@ -5,9 +5,9 @@ import ExpenseList from "./components/ExpenseList/ExpenseList";
 
 function App() {
   return (
-    <>
+    <div className={styles.rootContainer}>
       <ExpenseList></ExpenseList>
-    </>
+    </div>
   );
 }
 
