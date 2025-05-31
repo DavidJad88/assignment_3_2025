@@ -117,6 +117,7 @@ const ExpenseList = () => {
           />
           {formErrors && <p>{formErrors.date}</p>}
         </div>
+
         <button className={styles.addButton}>Add Expense</button>
       </form>
 

@@ -9,6 +9,11 @@ const ExpenseItem = ({ expense, refetch }) => {
   const [editData, setEditData] = useState({});
   const [editFormErrorMessage, setEditFormErrorMessage] = useState("");
 
+  const [deletingId, setDeletingId] = useState(null);
+  const [deleteData, setDeleteData] = useState({});
+  const [deleteErrorMessage, setDeleteErrorMessage] = useState("");
+
+  //<<<<<<<<<<<<<<EDIT>>>>>>>>>>>>>>
   //handle edit button click
   const handleEditClick = (expense) => {
     setEditingId(expense.id);
@@ -46,6 +51,32 @@ const ExpenseItem = ({ expense, refetch }) => {
     setEditData({});
   };
 
+  //<<<<<<<<<<<<<<DELETE>>>>>>>>>>>>>>
+
+  const handleDeleteClick = (expense) => {
+    setDeletingId(expense.id);
+    setDeleteData(expense);
+  };
+
+  const handleCancelDeleteClick = () => {
+    setDeletingId(null);
+    setDeleteData({});
+  };
+
+  const handleConfirmDeleteClick = async () => {
+    try {
+      // Update in Firestore
+      const expenseRef = doc(database, "expenses", deletingId);
+      await deleteDoc(expenseRef);
+      setDeletingId(null);
+      setDeleteData({});
+      refetch();
+      setDeleteErrorMessage("");
+    } catch (error) {
+      setDeleteErrorMessage("Problem deleting your expense");
+    }
+  };
+
   // formatting for display
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -61,7 +92,7 @@ const ExpenseItem = ({ expense, refetch }) => {
         Created:{" "}
         {expense.createdAt?.toDate
           ? formatDate(expense.createdAt.toDate())
-          : formatDate(expense.createdAt || expense.date)}
+          : formatDate(expense.createdAt || "N/A")}
       </span>
       {editFormErrorMessage && (
         <span className={styles.editFormErrorMessage}>
@@ -169,7 +200,27 @@ const ExpenseItem = ({ expense, refetch }) => {
             >
               Edit
             </button>
-            <button className={styles.deleteButton}>Delete</button>
+            <button
+              className={styles.deleteButton}
+              onClick={() => handleDeleteClick(expense)}
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      )}
+      {deletingId && (
+        <div className={styles.deleteConfirmWrapper}>
+          <div className={styles.deleteConfirmContainer}>
+            <p>
+              Are you sure you want to delete "{deleteData?.description}" from{" "}
+              {formatDate(deleteData?.date)}?
+            </p>
+            <div className={styles.confirmDeleteToolsContainer}>
+              <button onClick={handleConfirmDeleteClick}>Confirm</button>
+              <button onClick={handleCancelDeleteClick}>Cancel</button>
+            </div>
+            {deleteErrorMessage && <p>{deleteErrorMessage}</p>}
           </div>
         </div>
       )}
