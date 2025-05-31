@@ -6,6 +6,7 @@ import { useState } from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { database } from "../../../firebaseConfig";
 import ExpenseItem from "../ExpenseItem/ExpenseItem";
+import Filter from "../Filter/Filter";
 
 const ExpenseList = () => {
   const [newExpense, setNewExpense] = useState({
@@ -14,6 +15,11 @@ const ExpenseList = () => {
     category: "",
     date: "",
   });
+
+  //filtering states
+
+  const [selectedMonth, setSelectedMonth] = useState("all");
+  const [selectedYear, setSelectedYear] = useState("all");
 
   const { expenses, fetchExpensesErrorMessage, isFetchingExpenses, refetch } =
     useFetchExpenses();
@@ -50,6 +56,18 @@ const ExpenseList = () => {
       console.log(error.message);
     }
   };
+
+  //Filtering the expenses based on filter states
+  const filteredExpenses = expenses.filter((expense) => {
+    const dateObj = expense.date?.toDate?.() || new Date(expense.date);
+    const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+    const year = String(dateObj.getFullYear());
+
+    const monthMatches = selectedMonth === "all" || month === selectedMonth;
+    const yearMatches = selectedYear === "all" || year === selectedYear;
+
+    return monthMatches && yearMatches;
+  });
 
   return (
     <div className={styles.expenseTrackerWrapper}>
@@ -120,16 +138,22 @@ const ExpenseList = () => {
 
         <button className={styles.addButton}>Add Expense</button>
       </form>
-
-      {expenses.length > 0 ? (
+      <Filter
+        expenses={expenses}
+        selectedYear={selectedYear}
+        selectedMonth={selectedMonth}
+        setSelectedMonth={setSelectedMonth}
+        setSelectedYear={setSelectedYear}
+      ></Filter>
+      {filteredExpenses.length > 0 ? (
         <ul className={styles.expenseList}>
           <h2 className={styles.expenseListHeading}>Your expenses</h2>
-          {expenses.map((expense) => (
+          {filteredExpenses.map((expense) => (
             <ExpenseItem key={expense.id} expense={expense} refetch={refetch} />
           ))}
         </ul>
       ) : (
-        <div>{fetchExpensesErrorMessage}</div>
+        <div>No expenses found matching your selection</div>
       )}
     </div>
   );

@@ -3,6 +3,7 @@ import styles from "./ExpenseItem.module.css";
 import { useState } from "react";
 import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { database } from "../../../firebaseConfig";
+import { useEditFormValidation } from "../../hooks/useEditFormValidation";
 
 const ExpenseItem = ({ expense, refetch }) => {
   const [editingId, setEditingId] = useState(null);
@@ -12,6 +13,9 @@ const ExpenseItem = ({ expense, refetch }) => {
   const [deletingId, setDeletingId] = useState(null);
   const [deleteData, setDeleteData] = useState({});
   const [deleteErrorMessage, setDeleteErrorMessage] = useState("");
+
+  const { validate, editFormErrors, setEditFormErrors } =
+    useEditFormValidation();
 
   //<<<<<<<<<<<<<<EDIT>>>>>>>>>>>>>>
   //handle edit button click
@@ -28,6 +32,12 @@ const ExpenseItem = ({ expense, refetch }) => {
 
   // Save edited expense
   const handleEditFormSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!validate(editData)) {
+      console.log("edit expense form submission failed");
+      return;
+    }
     e.preventDefault();
     try {
       // Update in Firestore
@@ -49,6 +59,7 @@ const ExpenseItem = ({ expense, refetch }) => {
   const handleCancelClick = () => {
     setEditingId(null);
     setEditData({});
+    setEditFormErrors({});
   };
 
   //<<<<<<<<<<<<<<DELETE>>>>>>>>>>>>>>
@@ -110,6 +121,7 @@ const ExpenseItem = ({ expense, refetch }) => {
               value={editData.description}
               onChange={handleEditChange}
             />
+            {editFormErrors && <p>{editFormErrors.description}</p>}
           </div>
 
           <div className={styles.formGroup}>
@@ -122,6 +134,7 @@ const ExpenseItem = ({ expense, refetch }) => {
               step="0.01"
               min="0"
             />
+            {editFormErrors && <p>{editFormErrors.amount}</p>}
           </div>
 
           <div className={styles.formGroup}>
@@ -139,6 +152,7 @@ const ExpenseItem = ({ expense, refetch }) => {
               <option value="Clothing">Clothing</option>
               <option value="Other">Other</option>
             </select>
+            {editFormErrors && <p>{editFormErrors.category}</p>}
           </div>
 
           <div className={styles.formGroup}>
@@ -149,6 +163,7 @@ const ExpenseItem = ({ expense, refetch }) => {
               value={editData.date}
               onChange={handleEditChange}
             />
+            {editFormErrors && <p>{editFormErrors.date}</p>}
           </div>
 
           <div className={styles.formActions}>
