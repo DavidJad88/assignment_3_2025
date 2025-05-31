@@ -3,14 +3,9 @@ import styles from "./ExpenseList.module.css";
 import { useFetchExpenses } from "../../hooks/useFetchExpenses";
 import { useFormValidation } from "../../hooks/useFormValidation";
 import { useState } from "react";
-import {
-  addDoc,
-  collection,
-  doc,
-  serverTimestamp,
-  setDoc,
-} from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { database } from "../../../firebaseConfig";
+import ExpenseItem from "../ExpenseItem/ExpenseItem";
 
 const ExpenseList = () => {
   const [newExpense, setNewExpense] = useState({
@@ -19,11 +14,10 @@ const ExpenseList = () => {
     category: "",
     date: "",
   });
-  const [editingId, setEditingId] = useState(null);
-  const [editData, setEditData] = useState({});
 
-  const { expenses, fetchExpensesErrorMessage, isFetchingExpenses } =
+  const { expenses, fetchExpensesErrorMessage, isFetchingExpenses, refetch } =
     useFetchExpenses();
+
   const { validate, formErrors } = useFormValidation();
 
   //retrieving new expense values
@@ -50,6 +44,8 @@ const ExpenseList = () => {
         createdAt: serverTimestamp(),
       });
       console.log("Expense added successfully");
+      setNewExpense({ description: "", amount: "", category: "", date: "" });
+      refetch();
     } catch (error) {
       console.log(error.message);
     }
@@ -57,6 +53,7 @@ const ExpenseList = () => {
 
   return (
     <div className={styles.expenseTrackerWrapper}>
+      <h1 className={styles.expenseTrackerHeader}>Add a new expense</h1>
       <form
         className={styles.newExpenseForm}
         noValidate
@@ -75,7 +72,6 @@ const ExpenseList = () => {
           />
           {formErrors && <p>{formErrors.description}</p>}
         </div>
-
         <div className={styles.formGroup}>
           <label htmlFor="amount">Amount ($)</label>
           <input
@@ -91,7 +87,6 @@ const ExpenseList = () => {
           />
           {formErrors && <p>{formErrors.amount}</p>}
         </div>
-
         <div className={styles.formGroup}>
           <label htmlFor="category">Category</label>
           <select
@@ -111,7 +106,6 @@ const ExpenseList = () => {
           </select>
           {formErrors && <p>{formErrors.category}</p>}
         </div>
-
         <div className={styles.formGroup}>
           <label htmlFor="date">Date</label>
           <input
@@ -123,22 +117,19 @@ const ExpenseList = () => {
           />
           {formErrors && <p>{formErrors.date}</p>}
         </div>
-
-        <button className="add-button">Add Expense</button>
+        <button className={styles.addButton}>Add Expense</button>
       </form>
 
-      <table className={styles.expenseTable}>
-        <thead>
-          <tr>
-            <th>Description</th>
-            <th>Amount</th>
-            <th>Category</th>
-            <th>Date</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>{expenses.map((expense) => {})}</tbody>
-      </table>
+      {expenses.length > 0 ? (
+        <ul className={styles.expenseList}>
+          <h2 className={styles.expenseListHeading}>Your expenses</h2>
+          {expenses.map((expense) => (
+            <ExpenseItem key={expense.id} expense={expense} refetch={refetch} />
+          ))}
+        </ul>
+      ) : (
+        <div>{fetchExpensesErrorMessage}</div>
+      )}
     </div>
   );
 };

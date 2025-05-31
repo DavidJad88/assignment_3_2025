@@ -29,9 +29,6 @@ button {
   --text-lg: 20px;
   --text-xl: 24px;
 
-  --text-light: 300;
-  --text-medium: 400;
-
   /* Light blue theme colors */
   --light-blue-100: #e6f7ff;
   --light-blue-200: #b3e0ff;
@@ -46,9 +43,9 @@ button {
   --button-hover: var(--light-blue-400);
   --button-text: #fff;
 
-  /* Additional UI colors */
+  /* Additional colors */
   --border-color: #cce6ff;
   --background-light: #f5fbff;
   --text-primary: #003366;
-  --text-secondary: #4d4d4d;
+  --text-secondary: #ffffff;
 }

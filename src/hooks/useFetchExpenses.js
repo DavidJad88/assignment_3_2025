@@ -1,5 +1,5 @@
-import { collection, getDocs } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { useCallback, useEffect, useState } from "react";
 import { database } from "../../firebaseConfig";
 
 export const useFetchExpenses = () => {
@@ -8,30 +8,41 @@ export const useFetchExpenses = () => {
     useState("");
   const [isFetchingExpenses, setIsFetchingExpenses] = useState(false);
 
-  useEffect(() => {
-    const fetchExpenses = async () => {
-      setIsFetchingExpenses(true);
-      try {
-        const querySnapshot = await getDocs(collection(database, "expenses"));
-        console.log(querySnapshot);
+  const fetchExpenses = useCallback(async () => {
+    setIsFetchingExpenses(true);
+    try {
+      const q = query(
+        collection(database, "expenses"),
+        orderBy("createdAt", "desc")
+      );
+      const querySnapshot = await getDocs(q);
+      console.log(querySnapshot);
 
-        const expensesList = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setfetchExpensesErrorMessage("");
-        setExpenses(expensesList);
-      } catch (error) {
-        console.log(error.message);
-        setfetchExpensesErrorMessage(
-          "There seems to be a problem loading your expenses, please try again later"
-        );
-      } finally {
-        setIsFetchingExpenses(false);
-      }
-    };
-    fetchExpenses();
+      const expensesList = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setfetchExpensesErrorMessage("");
+      setExpenses(expensesList);
+    } catch (error) {
+      console.log(error.message);
+      setfetchExpensesErrorMessage(
+        "There seems to be a problem loading your expenses, please try again later"
+      );
+    } finally {
+      setIsFetchingExpenses(false);
+    }
   }, []);
 
-  return { expenses, fetchExpensesErrorMessage, isFetchingExpenses };
+  useEffect(() => {
+    fetchExpenses();
+  }, [fetchExpenses]);
+
+  return {
+    expenses,
+    fetchExpensesErrorMessage,
+    isFetchingExpenses,
+
+    refetch: fetchExpenses,
+  };
 };

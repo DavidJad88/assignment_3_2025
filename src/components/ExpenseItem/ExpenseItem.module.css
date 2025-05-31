@@ -1,0 +1,60 @@
+.expenseItem {
+  width: 100%;
+  height: 125px;
+  display: flex;
+  position: relative;
+  background-color: var(--light-blue-100);
+  padding: 0 var(--space-md);
+}
+.createdDate {
+  position: absolute;
+  top: 8px;
+  left: var(--space-md);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  background-color: var(--light-blue-500);
+  border-radius: 8px;
+  padding: 0 var(--space-md);
+}
+.editFormErrorMessage {
+  position: absolute;
+  right: var(--space-md);
+  top: 8px;
+  color: red;
+}
+
+.expenseDetails,
+.editForm {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.formGroup,
+.detailItem {
+  display: flex;
+  flex-direction: column;
+  width: 15%;
+}
+
+.formGroup input,
+.formGroup select {
+  min-height: 32px;
+  padding-left: var(--space-xs);
+}
+
+.formActions,
+.itemActions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.editButton,
+.deleteButton,
+.editformSubmitButton,
+.cancelButton {
+  width: 100px;
+  height: 32px;
+}
