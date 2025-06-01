@@ -76,8 +76,14 @@
   padding-top: var(--space-sm);
   gap: var(--space-sm);
 }
+
 .expenseListHeading {
   font-size: var(--text-base);
+}
+
+.totalContainer {
+  display: flex;
+  gap: var(--space-xs);
 }
 
 @media screen and (max-width: 480px) {

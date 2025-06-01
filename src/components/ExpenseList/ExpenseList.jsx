@@ -69,9 +69,31 @@ const ExpenseList = () => {
     return monthMatches && yearMatches;
   });
 
+  //for rendering months in total field
+  const monthNames = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  //for total of filtered expenses
+  const total = filteredExpenses.reduce(
+    (sum, expense) => sum + parseFloat(expense.amount || 0),
+    0
+  );
   return (
     <div className={styles.expenseTrackerWrapper}>
       <h1 className={styles.expenseTrackerHeader}>Add a new expense</h1>
+
       <form
         className={styles.newExpenseForm}
         noValidate
@@ -155,7 +177,18 @@ const ExpenseList = () => {
       ></Filter>
       {filteredExpenses.length > 0 ? (
         <ul className={styles.expenseList}>
-          <h2 className={styles.expenseListHeading}>Your expenses</h2>
+          <div className={styles.listHeadingContainer}>
+            <h2 className={styles.expenseListHeading}>Your expenses</h2>
+            <div className={styles.totalContainer}>
+              <span>Your total expenses</span>
+              {selectedMonth !== "all" && (
+                <span>for {monthNames[parseInt(selectedMonth, 10) - 1]} </span>
+              )}
+              {selectedYear !== "all" && <span>of {selectedYear}</span>}
+              <span>is ${total.toFixed(2)}</span>
+            </div>
+          </div>
+
           {filteredExpenses.map((expense) => (
             <ExpenseItem key={expense.id} expense={expense} refetch={refetch} />
           ))}
