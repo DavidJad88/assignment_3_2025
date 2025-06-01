@@ -8,10 +8,10 @@
 .createdDate {
   position: absolute;
   top: 8px;
-  left: var(--space-md);
+  left: var(--space-lg);
   font-size: 0.85rem;
   color: var(--text-secondary);
-  background-color: var(--light-blue-500);
+  background-color: var(--light-blue-400);
   border-radius: 8px;
   padding: 0 var(--space-md);
 }
@@ -171,6 +171,9 @@
 }
 
 @media screen and (max-width: 384px) {
+  .expenseItem {
+    min-height: 250px;
+  }
   .formGroup,
   .detailItem {
     width: 125px;
