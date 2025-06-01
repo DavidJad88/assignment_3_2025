@@ -7,8 +7,8 @@
 }
 .createdDate {
   position: absolute;
-  top: 8px;
-  left: var(--space-lg);
+  top: 0;
+  left: 0;
   font-size: 0.85rem;
   color: var(--text-secondary);
   background-color: var(--light-blue-400);
