@@ -77,66 +77,74 @@ const ExpenseList = () => {
         noValidate
         onSubmit={handleFormSubmit}
       >
-        <div className={styles.formGroup}>
-          <label htmlFor="description">Description</label>
-          <input
-            type="text"
-            id="description"
-            name="description"
-            placeholder="Add a short description"
-            value={newExpense.description}
-            onChange={handleInputChange}
-            required
-          />
-          {formErrors && <p>{formErrors.description}</p>}
-        </div>
-        <div className={styles.formGroup}>
-          <label htmlFor="amount">Amount ($)</label>
-          <input
-            type="number"
-            id="amount"
-            name="amount"
-            placeholder="add an amount"
-            value={newExpense.amount}
-            onChange={handleInputChange}
-            required
-            step="0.01"
-            min="0"
-          />
-          {formErrors && <p>{formErrors.amount}</p>}
-        </div>
-        <div className={styles.formGroup}>
-          <label htmlFor="category">Category</label>
-          <select
-            id="category"
-            name="category"
-            value={newExpense.category}
-            onChange={handleInputChange}
-          >
-            <option value="">Choose a category</option>
-            <option value="Groceries">Groceries</option>
-            <option value="Transportation">Transportation</option>
-            <option value="Housing">Housing</option>
-            <option value="Entertainment">Entertainment</option>
-            <option value="Utilities">Utilities</option>
-            <option value="Clothing">Clothing</option>
-            <option value="Other">Other</option>
-          </select>
-          {formErrors && <p>{formErrors.category}</p>}
-        </div>
-        <div className={styles.formGroup}>
-          <label htmlFor="date">Date</label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            value={newExpense.date}
-            onChange={handleInputChange}
-          />
-          {formErrors && <p>{formErrors.date}</p>}
+        <div className={styles.inputsContainer}>
+          <div className={styles.inputPairContainer}>
+            <div className={styles.formGroup}>
+              <label htmlFor="description">Description</label>
+              <input
+                type="text"
+                id="description"
+                name="description"
+                placeholder="Add a short description"
+                value={newExpense.description}
+                onChange={handleInputChange}
+                required
+              />
+              {formErrors && <p>{formErrors.description}</p>}
+            </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="amount">Amount($)</label>
+              <input
+                type="number"
+                id="amount"
+                name="amount"
+                placeholder="Add an amount"
+                value={newExpense.amount}
+                onChange={handleInputChange}
+                required
+                step="0.01"
+                min="0"
+              />
+              {formErrors && <p>{formErrors.amount}</p>}
+            </div>
+          </div>
+          <div className={styles.inputPairContainer}>
+            <div className={styles.formGroup}>
+              <label htmlFor="category">Category</label>
+              <select
+                id="category"
+                name="category"
+                value={newExpense.category}
+                onChange={handleInputChange}
+              >
+                <option value="">Choose a category</option>
+                <option value="Groceries">Groceries</option>
+                <option value="Transportation">Transportation</option>
+                <option value="Housing">Housing</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Clothing">Clothing</option>
+                <option value="Other">Other</option>
+              </select>
+              {formErrors && <p>{formErrors.category}</p>}
+            </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="date">Date</label>
+              <input
+                type="date"
+                id="date"
+                name="date"
+                value={newExpense.date}
+                onChange={handleInputChange}
+              />
+              {formErrors && <p>{formErrors.date}</p>}
+            </div>
+          </div>
         </div>
 
-        <button className={styles.addButton}>Add Expense</button>
+        <div className={styles.formToolsContainer}>
+          <button className={styles.addButton}>Add Expense</button>
+        </div>
       </form>
       <Filter
         expenses={expenses}

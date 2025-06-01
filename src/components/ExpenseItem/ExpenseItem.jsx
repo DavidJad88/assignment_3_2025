@@ -113,57 +113,62 @@ const ExpenseItem = ({ expense, refetch }) => {
       {editingId ? (
         // Edit Form
         <form className={styles.editForm} onSubmit={handleEditFormSubmit}>
-          <div className={styles.formGroup}>
-            <label htmlFor="description">Desription</label>
-            <input
-              type="text"
-              name="description"
-              value={editData.description}
-              onChange={handleEditChange}
-            />
-            {editFormErrors && <p>{editFormErrors.description}</p>}
-          </div>
+          <div className={styles.editInputsContainer}>
+            <div className={styles.editInputPair}>
+              <div className={styles.formGroup}>
+                <label htmlFor="description">Desription</label>
+                <input
+                  type="text"
+                  name="description"
+                  value={editData.description}
+                  onChange={handleEditChange}
+                />
+                {editFormErrors && <p>{editFormErrors.description}</p>}
+              </div>
 
-          <div className={styles.formGroup}>
-            <label htmlFor="amount?">Amount</label>
-            <input
-              type="number"
-              name="amount"
-              value={editData.amount}
-              onChange={handleEditChange}
-              step="0.01"
-              min="0"
-            />
-            {editFormErrors && <p>{editFormErrors.amount}</p>}
-          </div>
+              <div className={styles.formGroup}>
+                <label htmlFor="amount?">Amount</label>
+                <input
+                  type="number"
+                  name="amount"
+                  value={editData.amount}
+                  onChange={handleEditChange}
+                  step="0.01"
+                  min="0"
+                />
+                {editFormErrors && <p>{editFormErrors.amount}</p>}
+              </div>
+            </div>
+            <div className={styles.editInputPair}>
+              <div className={styles.formGroup}>
+                <label htmlFor="category">Category</label>
+                <select
+                  name="category"
+                  value={editData.category}
+                  onChange={handleEditChange}
+                >
+                  <option value="Groceries">Groceries</option>
+                  <option value="Transportation">Transportation</option>
+                  <option value="Housing">Housing</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Utilities">Utilities</option>
+                  <option value="Clothing">Clothing</option>
+                  <option value="Other">Other</option>
+                </select>
+                {editFormErrors && <p>{editFormErrors.category}</p>}
+              </div>
 
-          <div className={styles.formGroup}>
-            <label htmlFor="category">Category</label>
-            <select
-              name="category"
-              value={editData.category}
-              onChange={handleEditChange}
-            >
-              <option value="Groceries">Groceries</option>
-              <option value="Transportation">Transportation</option>
-              <option value="Housing">Housing</option>
-              <option value="Entertainment">Entertainment</option>
-              <option value="Utilities">Utilities</option>
-              <option value="Clothing">Clothing</option>
-              <option value="Other">Other</option>
-            </select>
-            {editFormErrors && <p>{editFormErrors.category}</p>}
-          </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor="date">Date</label>
-            <input
-              type="date"
-              name="date"
-              value={editData.date}
-              onChange={handleEditChange}
-            />
-            {editFormErrors && <p>{editFormErrors.date}</p>}
+              <div className={styles.formGroup}>
+                <label htmlFor="date">Date</label>
+                <input
+                  type="date"
+                  name="date"
+                  value={editData.date}
+                  onChange={handleEditChange}
+                />
+                {editFormErrors && <p>{editFormErrors.date}</p>}
+              </div>
+            </div>
           </div>
 
           <div className={styles.formActions}>
@@ -182,30 +187,39 @@ const ExpenseItem = ({ expense, refetch }) => {
       ) : (
         // Display View
         <div className={styles.expenseDetails}>
-          <div className={styles.detailItem}>
-            <span className={styles.detailLabel}>Description:</span>
-            <span className={styles.detailValue}>{expense.description}</span>
-          </div>
+          <div className={styles.detailsContainer}>
+            <div className={styles.detailsPair}>
+              <div className={styles.detailItem}>
+                <span className={styles.detailLabel}>Description:</span>
+                <span className={styles.detailValue}>
+                  {expense.description}
+                </span>
+              </div>
 
-          <div className={styles.detailItem}>
-            <span className={styles.detailLabel}>Amount:</span>
-            <span className={styles.detailValue}>
-              ${parseFloat(expense.amount).toFixed(2)}
-            </span>
-          </div>
+              <div className={styles.detailItem}>
+                <span className={styles.detailLabel}>Amount:</span>
+                <span className={styles.detailValue}>
+                  ${parseFloat(expense.amount).toFixed(2)}
+                </span>
+              </div>
+            </div>
+            <div className={styles.detailsPair}>
+              <div className={styles.detailItem}>
+                <span className={styles.detailLabel}>Category:</span>
+                <span
+                  className={`${styles.detailValue} ${styles.categoryBadge}`}
+                >
+                  {expense.category}
+                </span>
+              </div>
 
-          <div className={styles.detailItem}>
-            <span className={styles.detailLabel}>Category:</span>
-            <span className={`${styles.detailValue} ${styles.categoryBadge}`}>
-              {expense.category}
-            </span>
-          </div>
-
-          <div className={styles.detailItem}>
-            <span className={styles.detailLabel}>Date:</span>
-            <span className={styles.detailValue}>
-              {formatDate(expense.date)}
-            </span>
+              <div className={styles.detailItem}>
+                <span className={styles.detailLabel}>Date:</span>
+                <span className={styles.detailValue}>
+                  {formatDate(expense.date)}
+                </span>
+              </div>
+            </div>
           </div>
 
           <div className={styles.itemActions}>

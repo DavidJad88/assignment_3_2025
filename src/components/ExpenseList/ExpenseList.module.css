@@ -13,19 +13,34 @@
 
 .newExpenseForm {
   width: 100%;
-  height: 100px;
+  height: 150px;
+
   display: flex;
   justify-content: space-between;
-  align-items: center;
+
+  align-content: start;
   background-color: var(--light-blue-400);
-  border-bottom: 2px solid var(--light-blue-600);
-  padding: 0 var(--space-md);
+  padding: var(--space-md);
 }
+.inputsContainer {
+  display: flex;
+  height: 100%;
+  width: 80%;
+}
+
+.inputPairContainer {
+  display: flex;
+  flex-basis: 50%;
+  justify-content: space-around;
+  align-items: center;
+}
+
 .formGroup {
   display: flex;
-  height: 50px;
-  width: 15%;
   flex-direction: column;
+  padding-top: var(--space-xs);
+  height: 50px;
+  width: 150px;
 }
 
 .formGroup input,
@@ -38,8 +53,15 @@
   color: red;
   flex-grow: 1;
 }
-
+.formToolsContainer {
+  display: flex;
+  width: 20%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
 .addButton {
+  margin-top: var(--space-md);
   height: 32px;
   width: 100px;
 }
@@ -56,4 +78,57 @@
 }
 .expenseListHeading {
   font-size: var(--text-base);
+}
+
+@media screen and (max-width: 480px) {
+  .expenseTrackerWrapper {
+    width: 100%;
+  }
+
+  .newExpenseForm {
+    height: 200px;
+    flex-wrap: wrap;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .expenseTrackerWrapper {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 1051px) {
+  .expenseTrackerWrapper {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 891px) {
+  .newExpenseForm {
+    height: 200px;
+  }
+  .inputsContainer {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 531px) {
+  .newExpenseForm {
+    height: 250px;
+    flex-direction: column;
+  }
+  .inputsContainer {
+    width: 100%;
+    height: 70%;
+  }
+  .formToolsContainer {
+    width: 100%;
+    height: 30%;
+  }
+}
+
+@media screen and (max-width: 384px) {
+  .formGroup {
+    width: 125px;
+  }
 }
