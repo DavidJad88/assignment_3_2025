@@ -19,7 +19,7 @@
   justify-content: space-between;
 
   align-content: start;
-  background-color: var(--light-blue-400);
+  background-color: var(--light-blue-100);
   padding: var(--space-md);
 }
 .inputsContainer {
@@ -64,6 +64,7 @@
   margin-top: var(--space-md);
   height: 32px;
   width: 100px;
+  background-color: var(--light-blue-300);
 }
 
 .expenseList {

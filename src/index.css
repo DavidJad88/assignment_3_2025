@@ -44,6 +44,7 @@ button {
   --button-active: var(--light-blue-500);
   --button-hover: var(--light-blue-400);
   --button-text: #fff;
+  --button-delete: rgba(208, 134, 134, 0.744);
 
   /* Additional colors */
   --border-color: #cce6ff;

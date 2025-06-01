@@ -86,6 +86,20 @@
   height: 32px;
 }
 
+.editButton {
+  background-color: var(--light-blue-300);
+}
+.deleteButton {
+  background-color: var(--button-delete);
+}
+
+.editformSubmitButton {
+  background-color: var(--light-blue-300);
+}
+.cancelButton {
+  background-color: var(--light-blue-200);
+}
+
 .deleteConfirmWrapper {
   position: absolute;
   top: 0;

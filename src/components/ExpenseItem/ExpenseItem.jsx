@@ -116,7 +116,7 @@ const ExpenseItem = ({ expense, refetch }) => {
           <div className={styles.editInputsContainer}>
             <div className={styles.editInputPair}>
               <div className={styles.formGroup}>
-                <label htmlFor="description">Desription</label>
+                <label htmlFor="description">Description</label>
                 <input
                   type="text"
                   name="description"
@@ -127,7 +127,7 @@ const ExpenseItem = ({ expense, refetch }) => {
               </div>
 
               <div className={styles.formGroup}>
-                <label htmlFor="amount?">Amount</label>
+                <label htmlFor="amount?">Amount($)</label>
                 <input
                   type="number"
                   name="amount"
