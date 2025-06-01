@@ -51,7 +51,6 @@
 
 .formGroup p {
   color: red;
-  flex-grow: 1;
 }
 .formToolsContainer {
   display: flex;
